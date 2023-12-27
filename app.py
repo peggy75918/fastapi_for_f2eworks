@@ -1,6 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 from router import homework
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI(
     title="F2E Student Works",
@@ -16,3 +18,16 @@ def root():
 
 if __name__ == "__main__":
     uvicorn.run("app:app", port=5000, reload=True)
+
+origins = [
+    'http://localhost:5173',
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=['*']
+)
